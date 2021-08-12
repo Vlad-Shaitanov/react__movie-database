@@ -10,6 +10,7 @@ export class App extends Component {
       filters: {
         sort_by: "vote_average.desc",
       },
+      page: 1,
     };
   }
 
@@ -26,8 +27,15 @@ export class App extends Component {
     }));
   };
 
+  onChangePage = (page) => {
+    // console.log(page);
+    this.setState({
+      page: page,
+    });
+  };
+
   render() {
-    const { filters } = this.state;
+    const { filters, page } = this.state;
     return (
       <div className="container">
         <div className="row mt-4">
@@ -36,14 +44,20 @@ export class App extends Component {
               <div className="card-body">
                 <h3>Фильтры:</h3>
                 <Filters
+                  page={page}
                   filters={filters}
                   onChangeFilters={this.onChangeFilters}
+                  onChangePage={this.onChangePage}
                 />
               </div>
             </div>
           </div>
           <div className="col-8">
-            <MoviesList filters={filters} />
+            <MoviesList
+              filters={filters}
+              page={page}
+              onChangePage={this.onChangePage}
+            />
           </div>
         </div>
       </div>

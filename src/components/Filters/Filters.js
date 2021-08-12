@@ -4,7 +4,9 @@ export class Filters extends Component {
   render() {
     const {
       filters: { sort_by },
+      page,
       onChangeFilters,
+      onChangePage,
     } = this.props;
 
     return (
@@ -23,6 +25,29 @@ export class Filters extends Component {
             <option value="vote_average.desc">Рейтинг по убыванию</option>
             <option value="vote_average.asc">Рейтинг по возрастанию</option>
           </select>
+        </div>
+        <div className="btn-group mt-2">
+          <button
+            type="button"
+            className="btn btn-outline-primary"
+            disabled={page === 1}
+            // onClick={() => {
+            //   onChangePage(page - 1);
+            // }}
+            onClick={onChangePage.bind(null, page - 1)}
+          >
+            Назад
+          </button>
+          <button
+            type="button"
+            className="btn btn-outline-primary"
+            // onClick={() => {
+            //   onChangePage(page + 1);
+            // }}
+            onClick={onChangePage.bind(null, page + 1)}
+          >
+            Вперед
+          </button>
         </div>
       </form>
     );
