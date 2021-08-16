@@ -15,6 +15,7 @@ export class SortBy extends Component {
       {
         label: "Популярные по убыванию",
         value: "popularity.desc",
+        image: "/lol.jpg",
       },
       {
         label: "Популярные по возрастанию",
@@ -48,10 +49,6 @@ export class SortBy extends Component {
               {option.label}
             </option>
           ))}
-          {/*<option value="popularity.desc">Популярные по убыванию</option>*/}
-          {/*<option value="popularity.asc">Популярные по возрастанию</option>*/}
-          {/*<option value="vote_average.desc">Рейтинг по убыванию</option>*/}
-          {/*<option value="vote_average.asc">Рейтинг по возрастанию</option>*/}
         </select>
       </div>
     );

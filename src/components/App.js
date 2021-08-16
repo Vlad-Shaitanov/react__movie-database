@@ -9,8 +9,11 @@ export class App extends Component {
     this.state = {
       filters: {
         sort_by: "vote_average.desc",
+        primary_release_year: "2018",
+        with_genres: [],
       },
       page: 1,
+      total_pages: "",
     };
   }
 
@@ -27,15 +30,16 @@ export class App extends Component {
     }));
   };
 
-  onChangePage = (page) => {
+  onChangePagination = ({ page, total_pages = this.state.total_pages }) => {
     // console.log(page);
     this.setState({
       page: page,
+      total_pages: total_pages,
     });
   };
 
   render() {
-    const { filters, page } = this.state;
+    const { filters, page, total_pages } = this.state;
     return (
       <div className="container">
         <div className="row mt-4">
@@ -45,9 +49,10 @@ export class App extends Component {
                 <h3>Фильтры:</h3>
                 <Filters
                   page={page}
+                  total_pages={total_pages}
                   filters={filters}
                   onChangeFilters={this.onChangeFilters}
-                  onChangePage={this.onChangePage}
+                  onChangePagination={this.onChangePagination}
                 />
               </div>
             </div>
@@ -56,7 +61,7 @@ export class App extends Component {
             <MoviesList
               filters={filters}
               page={page}
-              onChangePage={this.onChangePage}
+              onChangePagination={this.onChangePagination}
             />
           </div>
         </div>
