@@ -10,8 +10,8 @@ export class UISelect extends Component {
 
   // PureComponent
   // shouldComponentUpdate(nextProps, nextState) {
-  //   // console.log("this.props", this.props);
-  //   // console.log("nextProps", nextProps);
+  //   console.log("this.props", this.props);
+  //   console.log("nextProps", nextProps);
   //   if (!_.isEqual(nextProps, this.props)) {
   //     return true;
   //   } else {
@@ -21,6 +21,7 @@ export class UISelect extends Component {
 
   render() {
     const { id, name, value, onChange, labelText, children } = this.props;
+    console.log("UISelect render");
     return (
       <div className="form-group">
         <label htmlFor={id}>{labelText}</label>

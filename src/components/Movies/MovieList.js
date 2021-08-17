@@ -16,6 +16,7 @@ export class MoviesList extends Component {
   //Получение фильмов
   getMovies = (filters, page) => {
     const { sort_by, primary_release_year, with_genres } = filters;
+    //Объект с ключами, которые нам нужно использовать в ссылке
     const queryStringParams = {
       api_key: API_KEY_3,
       language: "ru-RU",
@@ -24,6 +25,7 @@ export class MoviesList extends Component {
       primary_release_year: primary_release_year,
     };
 
+    //Если жанры выбраны, добавляем из к запросу
     if (with_genres.length > 0)
       queryStringParams.with_genres = with_genres.join(",");
 
@@ -36,6 +38,8 @@ export class MoviesList extends Component {
     // };
 
     // getQueryStringParams(queryString);
+
+    //С помощью queryString.stringify() мы превращаем объект в строку для запроса
     const link = `${API_URL}/discover/movie?${queryString.stringify(
       queryStringParams
     )}`;

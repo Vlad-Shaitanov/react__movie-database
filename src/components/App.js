@@ -9,7 +9,7 @@ export class App extends Component {
     this.state = {
       filters: {
         sort_by: "vote_average.desc",
-        primary_release_year: "2018",
+        primary_release_year: toString(new Date().getFullYear()),
         with_genres: [],
       },
       page: 1,
