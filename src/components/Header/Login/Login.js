@@ -1,7 +1,24 @@
 import React, { Component } from "react";
 import { API_URL, API_KEY_3 } from "../../../api/api";
+import { LoginForm } from "./LoginForm";
+import { Modal, ModalBody } from "reactstrap";
 
 export class Login extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      showModal: false,
+    };
+  }
+
+  //Переключение модального окна
+  toggleModal = () => {
+    this.setState((prevState) => ({
+      showModal: !prevState.showModal,
+    }));
+  };
+
   sendPromises = async () => {
     //Получаем request token
     // const getRequestToken = () => {
@@ -192,10 +209,16 @@ export class Login extends Component {
         <button
           className="btn btn-success"
           type="button"
-          onClick={this.sendPromises}
+          // onClick={this.sendPromises}
+          onClick={this.toggleModal}
         >
           Login
         </button>
+        <Modal isOpen={this.state.showModal} toggle={this.toggleModal}>
+          <ModalBody>
+            <LoginForm />
+          </ModalBody>
+        </Modal>
       </div>
     );
   }

@@ -6,3 +6,6 @@ body {
     height: 180px;
     object-fit: cover;
 }
+.invalid-feedback{
+    display: block;
+}
