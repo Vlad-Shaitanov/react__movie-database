@@ -13,7 +13,7 @@ export class Header extends Component {
               </a>
             </li>
           </ul>
-          <Login />
+          <Login updateUser={this.props.updateUser} />
         </div>
       </nav>
     );

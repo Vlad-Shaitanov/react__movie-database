@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { API_KEY_3, API_URL } from "../../../api/api";
 
 export class LoginForm extends Component {
   constructor() {
@@ -8,6 +9,7 @@ export class LoginForm extends Component {
       username: "",
       password: "",
       errors: {},
+      submitting: false, //Была ли отправлена форма
     };
   }
 
@@ -19,6 +21,7 @@ export class LoginForm extends Component {
       [name]: value, //Обновляем поле
       errors: {
         ...prevState.errors,
+        base: null,
         [name]: null, //Убираем уведомление о пустой строке
       },
     }));
@@ -37,7 +40,6 @@ export class LoginForm extends Component {
 
   //Инпут выходит из фокуса
   handleBlur = () => {
-    console.log("on blur");
     const errors = this.validateFields();
 
     //Если в объекте с ошибками есть какие-либо свойства, меняем состояние
@@ -49,6 +51,141 @@ export class LoginForm extends Component {
         },
       }));
     }
+  };
+
+  onSubmit = async () => {
+    const fetchApi = (url, options = {}) => {
+      return new Promise((resolve, reject) => {
+        fetch(url, options)
+          .then((response) => {
+            if (response.status < 400) {
+              return response.json();
+            } else {
+              throw response;
+            }
+          })
+          .then((data) => {
+            resolve(data);
+          })
+          .catch((response) => {
+            response.json().then((error) => {
+              reject(error);
+            });
+          });
+      });
+    };
+
+    this.setState({
+      submitting: true,
+    });
+
+    try {
+      //GET-запрос токена
+      const data = await fetchApi(
+        `${API_URL}/authentication/token/new?api_key=${API_KEY_3}`
+      );
+      console.log("token", data);
+
+      //POST-запрос, отправляем логин, пароль и токен из предыдущего запроса
+      const result = await fetchApi(
+        `${API_URL}/authentication/token/validate_with_login?api_key=${API_KEY_3}`,
+        {
+          method: "POST",
+          mode: "cors",
+          headers: {
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify({
+            username: this.state.username,
+            password: this.state.password,
+            request_token: data.request_token,
+          }),
+        }
+      );
+      console.log("login valid", result);
+
+      //POST-запрос с токеном для получения id сессии
+      const { session_id } = await fetchApi(
+        `${API_URL}/authentication/session/new?api_key=${API_KEY_3}`,
+        {
+          method: "POST",
+          mode: "cors",
+          headers: {
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify({
+            request_token: result.request_token,
+          }),
+        }
+      );
+      console.log(session_id);
+
+      const account = await fetchApi(
+        `${API_URL}/account?api_key=${API_KEY_3}&session_id=${session_id}`
+      );
+      console.log("account", account);
+
+      this.props.updateUser(account);
+      this.setState({
+        submitting: false,
+      });
+    } catch (error) {
+      this.setState({
+        submitting: false,
+        errors: {
+          base: error.status_message,
+        },
+      });
+      console.log("error", error);
+    }
+
+    /*Цепочка запросов:
+  	1 - GET-запрос токена
+  	2 - POST-запрос, отправляем логин, пароль и токен из предыдущего запроса
+  	3- POST-запрос с токеном для получения id сессии
+  	*/
+    // fetchApi(`${API_URL}/authentication/token/new?api_key=${API_KEY_3}`)
+    //   .then((data) => {
+    //     console.log("request token", data);
+    //
+    //     return fetchApi(
+    //       `${API_URL}/authentication/token/validate_with_login?api_key=${API_KEY_3}`,
+    //       {
+    //         method: "POST",
+    //         mode: "cors",
+    //         headers: {
+    //           "Content-type": "application/json",
+    //         },
+    //         body: JSON.stringify({
+    //           username: "AtteroDominatus",
+    //           password: "Ta01Ka01Sa90Go",
+    //           request_token: data.request_token,
+    //         }),
+    //       }
+    //     );
+    //   })
+    //   .then((data) => {
+    //     console.log("Session with login", data);
+    //     return fetchApi(
+    //       `${API_URL}/authentication/session/new?api_key=${API_KEY_3}`,
+    //       {
+    //         method: "POST",
+    //         mode: "cors",
+    //         headers: {
+    //           "Content-type": "application/json",
+    //         },
+    //         body: JSON.stringify({
+    //           request_token: data.request_token,
+    //         }),
+    //       }
+    //     );
+    //   })
+    //   .then((data) => {
+    //     console.log("Session", data);
+    //   })
+    //   .catch((error) => {
+    //     console.log("error", error);
+    //   });
   };
 
   onLogin = (event) => {
@@ -64,11 +201,13 @@ export class LoginForm extends Component {
           ...errors,
         },
       }));
+    } else {
+      this.onSubmit();
     }
   };
 
   render() {
-    const { username, password, errors } = this.state;
+    const { username, password, errors, submitting } = this.state;
     return (
       <div className="form-login-container">
         <form className="form-login">
@@ -112,11 +251,20 @@ export class LoginForm extends Component {
           </div>
           <button
             type="submit"
-            className="btn btn-lg btn-primary btn-block"
+            className="btn btn-primary btn-lg w-100"
             onClick={this.onLogin}
+            disabled={submitting}
           >
             Вход
           </button>
+          {errors.base && (
+            <div
+              className="invalid-feedback text-center mt-3"
+              style={{ display: "block" }}
+            >
+              {errors.base}
+            </div>
+          )}
         </form>
       </div>
     );

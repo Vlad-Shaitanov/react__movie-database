@@ -8,6 +8,7 @@ export class App extends Component {
     super();
 
     this.state = {
+      user: null,
       filters: {
         sort_by: "vote_average.desc",
         primary_release_year: toString(new Date().getFullYear()),
@@ -17,6 +18,13 @@ export class App extends Component {
       total_pages: "",
     };
   }
+
+  //Обновление данных о пользователе
+  updateUser = (user) => {
+    this.setState({
+      user,
+    });
+  };
 
   onChangeFilters = (event) => {
     // const newFilters = {
@@ -43,7 +51,7 @@ export class App extends Component {
     const { filters, page, total_pages } = this.state;
     return (
       <div>
-        <Header />
+        <Header updateUser={this.updateUser} />
         <div className="container">
           <div className="row mt-4">
             <div className="col-4">
