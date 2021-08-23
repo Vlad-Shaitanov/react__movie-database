@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { API_KEY_3, API_URL } from "../../../api/api";
+import { API_KEY_3, API_URL, fetchApi } from "../../../api/api";
 
 export class LoginForm extends Component {
   constructor() {
@@ -54,27 +54,6 @@ export class LoginForm extends Component {
   };
 
   onSubmit = async () => {
-    const fetchApi = (url, options = {}) => {
-      return new Promise((resolve, reject) => {
-        fetch(url, options)
-          .then((response) => {
-            if (response.status < 400) {
-              return response.json();
-            } else {
-              throw response;
-            }
-          })
-          .then((data) => {
-            resolve(data);
-          })
-          .catch((response) => {
-            response.json().then((error) => {
-              reject(error);
-            });
-          });
-      });
-    };
-
     this.setState({
       submitting: true,
     });
@@ -120,6 +99,7 @@ export class LoginForm extends Component {
       );
       console.log(session_id);
 
+      this.props.updateSessionId(session_id); //Записываем id сессии в состояние приложения(App)
       const account = await fetchApi(
         `${API_URL}/account?api_key=${API_KEY_3}&session_id=${session_id}`
       );

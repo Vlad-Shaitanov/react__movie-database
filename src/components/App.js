@@ -2,6 +2,10 @@ import React, { Component } from "react";
 import { MoviesList } from "./Movies/MovieList";
 import { Filters } from "./Filters/Filters";
 import { Header } from "./Header/Header";
+import { API_KEY_3, API_URL, fetchApi } from "../api/api";
+import Cookies from "universal-cookie";
+
+const cookies = new Cookies();
 
 export class App extends Component {
   constructor() {
@@ -9,6 +13,7 @@ export class App extends Component {
 
     this.state = {
       user: null,
+      session_id: null,
       filters: {
         sort_by: "vote_average.desc",
         primary_release_year: toString(new Date().getFullYear()),
@@ -23,6 +28,18 @@ export class App extends Component {
   updateUser = (user) => {
     this.setState({
       user,
+    });
+  };
+
+  //Обновление данных о сессии
+  updateSessionId = (session_id) => {
+    cookies.set("session_id", session_id, {
+      //Записываем id сессии в куки
+      path: "/", //Для всех URL
+      maxAge: 2592000, //Длительность хранения
+    });
+    this.setState({
+      session_id,
     });
   };
 
@@ -47,11 +64,29 @@ export class App extends Component {
     });
   };
 
+  componentDidMount() {
+    //Считываем id с куки
+    //Если в куках есть запись с id сессии, сразуже обновляем пользователя
+    const session_id = cookies.get("session_id");
+
+    if (session_id) {
+      fetchApi(
+        `${API_URL}/account?api_key=${API_KEY_3}&session_id=${session_id}`
+      ).then((user) => {
+        this.updateUser(user);
+      });
+    }
+  }
+
   render() {
-    const { filters, page, total_pages } = this.state;
+    const { filters, page, total_pages, user } = this.state;
     return (
       <div>
-        <Header updateUser={this.updateUser} />
+        <Header
+          user={user}
+          updateUser={this.updateUser}
+          updateSessionId={this.updateSessionId}
+        />
         <div className="container">
           <div className="row mt-4">
             <div className="col-4">
