@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { API_KEY_3, API_URL, fetchApi } from "../../../api/api";
+import classNames from "classnames";
 
 export class LoginForm extends Component {
   constructor() {
@@ -8,6 +9,7 @@ export class LoginForm extends Component {
     this.state = {
       username: "",
       password: "",
+      repeatpassword: "",
       errors: {},
       submitting: false, //Была ли отправлена форма
     };
@@ -34,20 +36,28 @@ export class LoginForm extends Component {
     if (this.state.username === "") {
       errors.username = "Not Empty";
     }
+    if (this.state.password.length < 5) {
+      errors.password = "Required! Must be 5 characters or more";
+    }
+    if (this.state.repeatpassword !== this.state.password) {
+      errors.repeatpassword = "Should be equal password";
+    }
 
     return errors;
   };
 
   //Инпут выходит из фокуса
-  handleBlur = () => {
+  handleBlur = (event) => {
+    const { name } = event.target;
     const errors = this.validateFields();
+    const error = errors[name];
 
     //Если в объекте с ошибками есть какие-либо свойства, меняем состояние
-    if (Object.keys(errors).length > 0) {
+    if (error) {
       this.setState((prevState) => ({
         errors: {
           ...prevState.errors,
-          ...errors,
+          [name]: error,
         },
       }));
     }
@@ -105,10 +115,10 @@ export class LoginForm extends Component {
       );
       console.log("account", account);
 
-      this.props.updateUser(account);
       this.setState({
         submitting: false,
       });
+      this.props.updateUser(account);
     } catch (error) {
       this.setState({
         submitting: false,
@@ -186,8 +196,15 @@ export class LoginForm extends Component {
     }
   };
 
+  //Динамическое получение классов для инпутов(подсветка при невалидности)
+  getClassForInput = (key) =>
+    classNames("form-control", {
+      invalid: this.state.errors[key],
+    });
+
   render() {
-    const { username, password, errors, submitting } = this.state;
+    const { username, password, repeatpassword, errors, submitting } =
+      this.state;
     return (
       <div className="form-login-container">
         <form className="form-login">
@@ -198,7 +215,7 @@ export class LoginForm extends Component {
             <label htmlFor="username">Пользователь</label>
             <input
               type="text"
-              className="form-control"
+              className={this.getClassForInput("username")}
               id="username"
               placeholder="Пользователь"
               name="username"
@@ -216,16 +233,35 @@ export class LoginForm extends Component {
             <label htmlFor="password">Пароль</label>
             <input
               type="password"
-              className="form-control"
+              className={this.getClassForInput("password")}
               id="password"
               placeholder="Пароль"
               name="password"
               value={password}
               onChange={this.onChange}
+              onBlur={this.handleBlur}
             />
             {errors.password && (
               <div className="invalid-feedback" style={{ display: "block" }}>
                 {errors.password}
+              </div>
+            )}
+          </div>
+          <div className="form-group mb-3">
+            <label htmlFor="username">Повторите пароль</label>
+            <input
+              type="password"
+              className={this.getClassForInput("repeatpassword")}
+              id="repeatpassword"
+              placeholder="Повторите пароль"
+              name="repeatpassword"
+              value={repeatpassword}
+              onChange={this.onChange}
+              onBlur={this.handleBlur}
+            />
+            {errors.repeatpassword && (
+              <div className="invalid-feedback" style={{ display: "block" }}>
+                {errors.repeatpassword}
               </div>
             )}
           </div>
