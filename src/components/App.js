@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import { MoviesList } from "./Movies/MovieList";
 import { Filters } from "./Filters/Filters";
 import { Header } from "./Header/Header";
 import { API_KEY_3, API_URL, fetchApi } from "../api/api";
 import Cookies from "universal-cookie";
+import MoviesContainer from "./Movies/MoviesContainer";
 
 const cookies = new Cookies();
 
@@ -104,7 +104,7 @@ export class App extends Component {
               </div>
             </div>
             <div className="col-8">
-              <MoviesList
+              <MoviesContainer
                 filters={filters}
                 page={page}
                 onChangePagination={this.onChangePagination}
