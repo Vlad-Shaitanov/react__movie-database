@@ -288,10 +288,22 @@ class LoginForm extends Component {
   }
 }
 
-export default (props) => {
+const LoginFormContainer = (props) => {
   return (
     <AppContext.Consumer>
-      {(context) => <LoginForm updateUser={context.updateUser} {...props} />}
+      {(context) => (
+        <LoginForm
+          updateUser={context.updateUser}
+          updateSessionId={context.updateSessionId}
+          {...props}
+        />
+      )}
     </AppContext.Consumer>
   );
 };
+
+/*Подпишем обертку, чтобы она не отображалась в девтулз как анонимная,
+а имела имя. Такой подход упрощает обработку ошибок*/
+LoginFormContainer.displayName = "LoginFormContainer";
+
+export default LoginFormContainer;

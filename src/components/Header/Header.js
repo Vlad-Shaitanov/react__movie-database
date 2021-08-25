@@ -4,7 +4,7 @@ import User from "./User";
 
 export class Header extends Component {
   render() {
-    const { user, updateSessionId } = this.props;
+    const { user } = this.props;
     return (
       <nav className="navbar navbar-dark bg-primary">
         <div className="container">
@@ -15,7 +15,7 @@ export class Header extends Component {
               </a>
             </li>
           </ul>
-          {user ? <User /> : <Login updateSessionId={updateSessionId} />}
+          {user ? <User /> : <Login />}
         </div>
       </nav>
     );
