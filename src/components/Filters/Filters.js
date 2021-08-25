@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { SortBy } from "./SortBy";
 import PrimaryReleaseYear from "./PrimaryReleaseYear";
 import Pagination from "./Pagination";
-import { Genres } from "./Genres";
+import GenresContainer from "./GenresContainer";
 
 export class Filters extends Component {
   render() {
@@ -21,7 +21,10 @@ export class Filters extends Component {
           primary_release_year={primary_release_year}
           onChangeFilters={onChangeFilters}
         />
-        <Genres with_genres={with_genres} onChangeFilters={onChangeFilters} />
+        <GenresContainer
+          with_genres={with_genres}
+          onChangeFilters={onChangeFilters}
+        />
         <Pagination
           page={page}
           total_pages={total_pages}
