@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { API_KEY_3, API_URL, fetchApi } from "../../../api/api";
+import { AppContext } from "../../App";
 import classNames from "classnames";
 
-export class LoginForm extends Component {
+class LoginForm extends Component {
   constructor() {
     super();
 
@@ -286,3 +287,11 @@ export class LoginForm extends Component {
     );
   }
 }
+
+export default (props) => {
+  return (
+    <AppContext.Consumer>
+      {(context) => <LoginForm updateUser={context.updateUser} {...props} />}
+    </AppContext.Consumer>
+  );
+};

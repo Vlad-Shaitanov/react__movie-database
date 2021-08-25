@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { LoginForm } from "./LoginForm";
+import LoginForm from "./LoginForm";
 import { Modal, ModalBody } from "reactstrap";
 
 export class Login extends Component {
@@ -30,10 +30,7 @@ export class Login extends Component {
         </button>
         <Modal isOpen={this.state.showModal} toggle={this.toggleModal}>
           <ModalBody>
-            <LoginForm
-              updateUser={this.props.updateUser}
-              updateSessionId={this.props.updateSessionId}
-            />
+            <LoginForm updateSessionId={this.props.updateSessionId} />
           </ModalBody>
         </Modal>
       </div>

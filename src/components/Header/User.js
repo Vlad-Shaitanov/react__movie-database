@@ -1,6 +1,7 @@
 import React, { Component } from "react";
+import { AppContext } from "../App";
 
-export class User extends Component {
+class User extends Component {
   render() {
     const { user } = this.props;
     return (
@@ -15,3 +16,20 @@ export class User extends Component {
     );
   }
 }
+
+const UserContainer = (props) => {
+  return (
+    <AppContext.Consumer>
+      {(context) => {
+        // console.log(context);
+        return <User user={context.user} {...props} />;
+      }}
+    </AppContext.Consumer>
+  );
+};
+
+/*Подпишем обертку, чтобы она не отображалась в девтулз как анонимная,
+а имела имя. Такой подход упрощает обработку ошибок*/
+UserContainer.displayName = "UserContainer";
+
+export default UserContainer;
