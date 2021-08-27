@@ -1,5 +1,4 @@
 import React from "react";
-import MoviesList from "./MovieList";
 import { API_URL, API_KEY_3 } from "../../api/api";
 import _ from "lodash";
 import queryString from "query-string";
@@ -63,7 +62,7 @@ export default (Component) =>
 
     render() {
       const { movies } = this.state;
-      console.log(Component);
+      // console.log(Component);
       return <Component movies={movies} />;
     }
   };
