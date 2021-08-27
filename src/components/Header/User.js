@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { AppContext } from "../App";
+import AppContextHOC from "../HOC/AppContextHOC";
 
 class User extends Component {
   render() {
@@ -16,20 +16,19 @@ class User extends Component {
     );
   }
 }
+export default AppContextHOC(User);
 
-const UserContainer = (props) => {
-  return (
-    <AppContext.Consumer>
-      {(context) => {
-        // console.log(context);
-        return <User user={context.user} {...props} />;
-      }}
-    </AppContext.Consumer>
-  );
-};
-
-/*Подпишем обертку, чтобы она не отображалась в девтулз как анонимная,
-а имела имя. Такой подход упрощает обработку ошибок*/
-UserContainer.displayName = "UserContainer";
-
-export default UserContainer;
+// const UserContainer = (props) => {
+//   return (
+//     <AppContext.Consumer>
+//       {(context) => {
+//         // console.log(context);
+//         return <User user={context.user} {...props} />;
+//       }}
+//     </AppContext.Consumer>
+//   );
+// };
+//
+// /*Подпишем обертку, чтобы она не отображалась в девтулз как анонимная,
+// а имела имя. Такой подход упрощает обработку ошибок*/
+// UserContainer.displayName = "UserContainer";

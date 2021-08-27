@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { API_KEY_3, API_URL, fetchApi } from "../../../api/api";
 import { AppContext } from "../../App";
+import AppContextHOC from "../../HOC/AppContextHOC";
 import classNames from "classnames";
 
 class LoginForm extends Component {
@@ -288,22 +289,24 @@ class LoginForm extends Component {
   }
 }
 
-const LoginFormContainer = (props) => {
-  return (
-    <AppContext.Consumer>
-      {(context) => (
-        <LoginForm
-          updateUser={context.updateUser}
-          updateSessionId={context.updateSessionId}
-          {...props}
-        />
-      )}
-    </AppContext.Consumer>
-  );
-};
+export default AppContextHOC(LoginForm);
 
-/*Подпишем обертку, чтобы она не отображалась в девтулз как анонимная,
-а имела имя. Такой подход упрощает обработку ошибок*/
-LoginFormContainer.displayName = "LoginFormContainer";
-
-export default LoginFormContainer;
+// const LoginFormContainer = (props) => {
+//   return (
+//     <AppContext.Consumer>
+//       {(context) => (
+//         <LoginForm
+//           updateUser={context.updateUser}
+//           updateSessionId={context.updateSessionId}
+//           {...props}
+//         />
+//       )}
+//     </AppContext.Consumer>
+//   );
+// };
+//
+// /*Подпишем обертку, чтобы она не отображалась в девтулз как анонимная,
+// а имела имя. Такой подход упрощает обработку ошибок*/
+// LoginFormContainer.displayName = "LoginFormContainer";
+//
+// export default LoginFormContainer;

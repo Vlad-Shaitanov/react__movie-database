@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="99f8eb7c-e5ca-48d2-be7e-7fa9e816676a" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Filters/Filters.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Filters/Filters.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Filters/Genres.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Filters/Genres.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Movies/MoviesHOC.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Movies/MoviesHOC.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Header/Login/LoginForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Header/Login/LoginForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Header/User.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Header/User.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -31,18 +29,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Filters.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/Filters/Filters.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="415">
-              <caret line="34" lean-forward="true" selection-start-line="34" selection-end-line="34" />
-              <folding>
-                <element signature="e#0#41#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="MoviesHOC.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/Movies/MoviesHOC.js">
           <provider selected="true" editor-type-id="text-editor">
@@ -55,11 +41,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Genres.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/Filters/Genres.js">
+      <file leaf-file-name="AppContextHOC.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/HOC/AppContextHOC.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1118">
-              <caret line="43" column="2" lean-forward="true" selection-start-line="43" selection-start-column="2" selection-end-line="43" selection-end-column="2" />
+            <state relative-caret-position="234">
+              <caret line="9" column="68" selection-start-line="9" selection-start-column="68" selection-end-line="9" selection-end-column="68" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
@@ -67,13 +53,29 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GenresHOC.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/components/Filters/GenresHOC.js">
+      <file leaf-file-name="User.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/Header/User.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="155">
-              <caret line="53" column="6" lean-forward="true" selection-start-line="53" selection-start-column="9" selection-end-line="53" selection-end-column="32" />
+            <state relative-caret-position="468">
+              <caret line="18" column="35" selection-start-line="18" selection-start-column="35" selection-end-line="18" selection-end-column="35" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
+                <element signature="e#451#488#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="LoginForm.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/components/Header/Login/LoginForm.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="467">
+              <caret line="291" column="38" selection-start-line="291" selection-start-column="38" selection-end-line="291" selection-end-column="38" />
+              <folding>
+                <element signature="e#0#41#0" expanded="true" />
+                <element signature="e#3448#3626#0" />
+                <element signature="e#3631#3702#0" />
+                <element signature="e#8278#8320#0" />
               </folding>
             </state>
           </provider>
@@ -106,16 +108,17 @@
         <option value="$PROJECT_DIR$/src/stylesheets/index.css" />
         <option value="$PROJECT_DIR$/src/components/Movies/MoviesContainer.js" />
         <option value="$PROJECT_DIR$/src/components/Filters/GenresContainer.js" />
-        <option value="$PROJECT_DIR$/src/components/Header/User.js" />
-        <option value="$PROJECT_DIR$/src/components/Header/Login/LoginForm.js" />
         <option value="$PROJECT_DIR$/src/components/Header/Header.js" />
         <option value="$PROJECT_DIR$/src/components/Header/Login/Login.js" />
         <option value="$PROJECT_DIR$/src/components/Movies/MovieList.js" />
         <option value="$PROJECT_DIR$/src/components/App.js" />
         <option value="$PROJECT_DIR$/src/components/Filters/Genres.js" />
-        <option value="$PROJECT_DIR$/src/components/Filters/Filters.js" />
         <option value="$PROJECT_DIR$/src/components/Movies/MoviesHOC.js" />
+        <option value="$PROJECT_DIR$/src/components/Filters/Filters.js" />
         <option value="$PROJECT_DIR$/src/components/Filters/GenresHOC.js" />
+        <option value="$PROJECT_DIR$/src/components/Header/User.js" />
+        <option value="$PROJECT_DIR$/src/components/HOC/AppContextHOC.js" />
+        <option value="$PROJECT_DIR$/src/components/Header/Login/LoginForm.js" />
       </list>
     </option>
   </component>
@@ -175,13 +178,6 @@
               <item name="react__movie-database" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="Filters" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="react__movie-database" type="b2602c69:ProjectViewProjectNode" />
-              <item name="react__movie-database" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
               <item name="Header" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -189,7 +185,15 @@
               <item name="react__movie-database" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="Movies" type="462c0819:PsiDirectoryNode" />
+              <item name="Header" type="462c0819:PsiDirectoryNode" />
+              <item name="Login" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="react__movie-database" type="b2602c69:ProjectViewProjectNode" />
+              <item name="react__movie-database" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="HOC" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -280,12 +284,12 @@
       <workItem from="1629805511043" duration="4199000" />
       <workItem from="1629887402825" duration="6962000" />
       <workItem from="1629906032404" duration="5164000" />
-      <workItem from="1630056658976" duration="3072000" />
+      <workItem from="1630056658976" duration="6798000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="141927000" />
+    <option name="totallyTimeSpent" value="145653000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -361,13 +365,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/components/Movies/MovieItem.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="130">
-          <caret line="5" column="25" selection-start-line="5" selection-start-column="25" selection-end-line="5" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/Filters/Filters.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="650">
@@ -669,28 +666,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/Header/Login/LoginForm.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="53">
-          <caret line="288" column="1" lean-forward="true" selection-start-line="288" selection-start-column="1" selection-end-line="288" selection-end-column="1" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-            <element signature="e#3448#3626#0" />
-            <element signature="e#3631#3702#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/Header/User.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="30" lean-forward="true" selection-start-line="30" selection-end-line="31" selection-end-column="53" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/Movies/MoviesContainer.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1716">
@@ -701,30 +676,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/App.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="494">
-          <caret line="113" column="27" selection-start-line="113" selection-start-column="27" selection-end-line="113" selection-end-column="27" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/Movies/MovieList.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="650">
           <caret line="25" column="31" selection-start-line="25" selection-start-column="31" selection-end-line="25" selection-end-column="31" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/Filters/Genres.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1118">
-          <caret line="43" column="2" lean-forward="true" selection-start-line="43" selection-start-column="2" selection-end-line="43" selection-end-column="2" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
           </folding>
@@ -743,10 +698,27 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/Filters/Filters.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="415">
-          <caret line="34" lean-forward="true" selection-start-line="34" selection-end-line="34" />
+        <state relative-caret-position="78">
+          <caret line="3" column="38" selection-start-line="3" selection-start-column="38" selection-end-line="3" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Filters/GenresHOC.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="26">
+          <caret line="1" column="51" selection-start-line="1" selection-start-column="51" selection-end-line="1" selection-end-column="51" />
           <folding>
-            <element signature="e#0#41#0" expanded="true" />
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Filters/Genres.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1118">
+          <caret line="43" column="2" lean-forward="true" selection-start-line="43" selection-start-column="2" selection-end-line="43" selection-end-column="2" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -761,12 +733,46 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/Filters/GenresHOC.js">
+    <entry file="file://$PROJECT_DIR$/src/components/App.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="155">
-          <caret line="53" column="6" lean-forward="true" selection-start-line="53" selection-start-column="9" selection-end-line="53" selection-end-column="32" />
+        <state relative-caret-position="494">
+          <caret line="113" column="27" selection-start-line="113" selection-start-column="27" selection-end-line="113" selection-end-column="27" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/HOC/AppContextHOC.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="9" column="68" selection-start-line="9" selection-start-column="68" selection-end-line="9" selection-end-column="68" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Header/User.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="468">
+          <caret line="18" column="35" selection-start-line="18" selection-start-column="35" selection-end-line="18" selection-end-column="35" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+            <element signature="e#451#488#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Header/Login/LoginForm.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="467">
+          <caret line="291" column="38" selection-start-line="291" selection-start-column="38" selection-end-line="291" selection-end-column="38" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+            <element signature="e#3448#3626#0" />
+            <element signature="e#3631#3702#0" />
+            <element signature="e#8278#8320#0" />
           </folding>
         </state>
       </provider>
