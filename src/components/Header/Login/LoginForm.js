@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { API_KEY_3, API_URL, fetchApi } from "../../../api/api";
-import { AppContext } from "../../App";
+import CallApi from "../../../api/api";
+
 import AppContextHOC from "../../HOC/AppContextHOC";
 import classNames from "classnames";
 
@@ -71,50 +71,83 @@ class LoginForm extends Component {
     });
 
     try {
+      /*Цепочка запросов:
+  	1 - GET-запрос токена
+  	2 - POST-запрос, отправляем логин, пароль и токен из предыдущего запроса
+  	3- POST-запрос с токеном для получения id сессии
+  	*/
       //GET-запрос токена
-      const data = await fetchApi(
-        `${API_URL}/authentication/token/new?api_key=${API_KEY_3}`
-      );
-      console.log("token", data);
+      // const data = await fetchApi(
+      //   `${API_URL}/authentication/token/new?api_key=${API_KEY_3}`
+      // );
+      //  console.log("token", data);
 
       //POST-запрос, отправляем логин, пароль и токен из предыдущего запроса
-      const result = await fetchApi(
-        `${API_URL}/authentication/token/validate_with_login?api_key=${API_KEY_3}`,
+      // const result = await fetchApi(
+      //   `${API_URL}/authentication/token/validate_with_login?api_key=${API_KEY_3}`,
+      //   {
+      //     method: "POST",
+      //     mode: "cors",
+      //     headers: {
+      //       "Content-type": "application/json",
+      //     },
+      //     body: JSON.stringify({
+      //       username: this.state.username,
+      //       password: this.state.password,
+      //       request_token: data.request_token,
+      //     }),
+      //   }
+      // );
+      //  console.log("login valid", result);
+
+      //POST-запрос с токеном для получения id сессии
+      // const { session_id } = await fetchApi(
+      //   `${API_URL}/authentication/session/new?api_key=${API_KEY_3}`,
+      //   {
+      //     method: "POST",
+      //     mode: "cors",
+      //     headers: {
+      //       "Content-type": "application/json",
+      //     },
+      //     body: JSON.stringify({
+      //       request_token: result.request_token,
+      //     }),
+      //   }
+      // );
+      // console.log(session_id);
+
+      const data = await CallApi.get("/authentication/token/new");
+      console.log("token", data);
+
+      const result = await CallApi.post(
+        "/authentication/token/validate_with_login",
         {
-          method: "POST",
-          mode: "cors",
-          headers: {
-            "Content-type": "application/json",
-          },
-          body: JSON.stringify({
+          body: {
             username: this.state.username,
             password: this.state.password,
             request_token: data.request_token,
-          }),
+          },
         }
       );
       console.log("login valid", result);
 
-      //POST-запрос с токеном для получения id сессии
-      const { session_id } = await fetchApi(
-        `${API_URL}/authentication/session/new?api_key=${API_KEY_3}`,
-        {
-          method: "POST",
-          mode: "cors",
-          headers: {
-            "Content-type": "application/json",
-          },
-          body: JSON.stringify({
-            request_token: result.request_token,
-          }),
-        }
-      );
+      const { session_id } = await CallApi.post("/authentication/session/new", {
+        body: {
+          request_token: result.request_token,
+        },
+      });
       console.log(session_id);
 
       this.props.updateSessionId(session_id); //Записываем id сессии в состояние приложения(App)
-      const account = await fetchApi(
-        `${API_URL}/account?api_key=${API_KEY_3}&session_id=${session_id}`
-      );
+      // const account = await fetchApi(
+      //   `${API_URL}/account?api_key=${API_KEY_3}&session_id=${session_id}`
+      // );
+
+      const account = await CallApi.get("/account", {
+        params: {
+          session_id: session_id,
+        },
+      });
       console.log("account", account);
 
       this.setState({
