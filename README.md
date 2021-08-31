@@ -1,5 +1,24 @@
-# Getting Started with Create React App
+# Приложение для взаимодействия с базой фильмов (tmdb.org)
 
+### В работе использованы:
+- Классовые компоненты;
+- библиотека reactstrap для стилизации;
+- библиотека Material UI для стилизации;
+- библиотека classnames;
+- библиотека universal-cookie для сохранения в куках сессии текущего пользователя;
+
+***
+### Реализован следующий функционал:
+1. Поиск фильмов и сортировка по:
+    1. рейтингам,
+    2. популярности,
+    3. году релиза,
+    4. жанрам.
+2. Пагинация
+3. Форма входа/выхода из приложения
+
+
+***
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
