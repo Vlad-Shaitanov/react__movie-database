@@ -46,6 +46,17 @@ export class App extends Component {
     });
   };
 
+  //Выход из учетной записи пользователя
+  onLogOut = () => {
+    cookies.remove("session_id"); //Удаляем куку
+
+    //Сбрасываем id сессии и пользователя
+    this.setState({
+      session_id: null,
+      user: null,
+    });
+  };
+
   onChangeFilters = (event) => {
     // const newFilters = {
     //    ...this.state.filters,
@@ -87,6 +98,7 @@ export class App extends Component {
           });
 
           this.updateUser(account);
+          this.updateSessionId(session_id);
         } catch (error) {
           console.log("error", error);
         }
@@ -104,6 +116,7 @@ export class App extends Component {
           session_id: session_id,
           updateSessionId: this.updateSessionId,
           updateUser: this.updateUser,
+          onLogOut: this.onLogOut,
         }}
       >
         <div>
