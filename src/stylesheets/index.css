@@ -12,3 +12,15 @@ body {
 input.invalid{
     border-color: #dc3545;
 }
+
+.card-icons{
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 10px;
+}
+.card-icons span{
+    cursor: pointer;
+}
+.material-icons.orange600{
+    color: #FB8C00;
+}
