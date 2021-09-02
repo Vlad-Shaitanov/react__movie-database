@@ -1,9 +1,10 @@
 import React, { Component } from "react";
-import { Filters } from "./Filters/Filters";
 import { Header } from "./Header/Header";
 import CallApi from "../api/api";
 import Cookies from "universal-cookie";
-import MoviesList from "./Movies/MovieList.js";
+import MoviesPage from "./pages/MoviesPage/MoviesPage";
+import MoviePage from "./pages/MoviePage/MoviePage";
+import { BrowserRouter, Route, Link } from "react-router-dom";
 
 const cookies = new Cookies();
 
@@ -17,13 +18,6 @@ export class App extends Component {
     this.state = {
       user: null,
       session_id: null,
-      filters: {
-        sort_by: "vote_average.desc",
-        primary_release_year: toString(new Date().getFullYear()),
-        with_genres: [],
-      },
-      page: 1,
-      total_pages: "",
     };
   }
 
@@ -57,27 +51,6 @@ export class App extends Component {
     });
   };
 
-  onChangeFilters = (event) => {
-    // const newFilters = {
-    //    ...this.state.filters,
-    //    [event.target.name]: event.target.value
-    // };
-    this.setState((prevState) => ({
-      filters: {
-        ...this.state.filters,
-        [event.target.name]: event.target.value,
-      },
-    }));
-  };
-
-  onChangePagination = ({ page, total_pages = this.state.total_pages }) => {
-    // console.log(page);
-    this.setState({
-      page: page,
-      total_pages: total_pages,
-    });
-  };
-
   componentDidMount() {
     //Считываем id с куки
     //Если в куках есть запись с id сессии, сразуже обновляем пользователя
@@ -108,46 +81,29 @@ export class App extends Component {
   }
 
   render() {
-    const { filters, page, total_pages, user, session_id } = this.state;
+    const { user, session_id } = this.state;
     return (
-      <AppContext.Provider
-        value={{
-          user: user,
-          session_id: session_id,
-          updateSessionId: this.updateSessionId,
-          updateUser: this.updateUser,
-          onLogOut: this.onLogOut,
-        }}
-      >
-        <div>
-          <Header user={user} />
-          <div className="container">
-            <div className="row mt-4">
-              <div className="col-4">
-                <div className="card" style={{ width: "100%" }}>
-                  <div className="card-body">
-                    <h3>Фильтры:</h3>
-                    <Filters
-                      page={page}
-                      total_pages={total_pages}
-                      filters={filters}
-                      onChangeFilters={this.onChangeFilters}
-                      onChangePagination={this.onChangePagination}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="col-8">
-                <MoviesList
-                  filters={filters}
-                  page={page}
-                  onChangePagination={this.onChangePagination}
-                />
-              </div>
-            </div>
+      <BrowserRouter>
+        <AppContext.Provider
+          value={{
+            user: user,
+            session_id: session_id,
+            updateSessionId: this.updateSessionId,
+            updateUser: this.updateUser,
+            onLogOut: this.onLogOut,
+          }}
+        >
+          <div>
+            <Header user={user} />
+            <Link to="/">All Movies</Link>
+            <Link to="/movie" style={{ display: "block" }}>
+              Movie Page
+            </Link>
+            <Route exact path="/" component={MoviesPage} />
+            <Route path="/movie" component={MoviePage} />
           </div>
-        </div>
-      </AppContext.Provider>
+        </AppContext.Provider>
+      </BrowserRouter>
     );
   }
 }
