@@ -96,11 +96,9 @@ export class App extends Component {
           <div>
             <Header user={user} />
             <Link to="/">All Movies</Link>
-            <Link to="/movie" style={{ display: "block" }}>
-              Movie Page
-            </Link>
+
             <Route exact path="/" component={MoviesPage} />
-            <Route path="/movie" component={MoviePage} />
+            <Route path="/movie/:id" component={MoviePage} />
           </div>
         </AppContext.Provider>
       </BrowserRouter>

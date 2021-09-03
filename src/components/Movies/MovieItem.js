@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 export class MovieItem extends Component {
   constructor() {
@@ -65,7 +66,9 @@ export class MovieItem extends Component {
               {bookmark ? "bookmark" : "bookmark_border"}
             </span>
           </div>
-          <h6 className="card-title">{item.title}</h6>
+          <Link className="card-title" to={`/movie/${item.id}`}>
+            {item.title}
+          </Link>
           <div className="card-text">Рейтинг: {item.vote_average}</div>
         </div>
       </div>
