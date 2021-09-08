@@ -21,6 +21,9 @@ input.invalid{
 .card-icons span{
     cursor: pointer;
 }
-.material-icons.orange600{
-    color: #FB8C00;
+
+.movpage{
+    background-repeat: no-repeat;
+    background-size: cover;
+
 }
