@@ -1,19 +1,6 @@
 import React, { Component } from "react";
-import {
-  TabContent,
-  TabPane,
-  Nav,
-  NavItem,
-  NavLink,
-  Card,
-  Button,
-  CardTitle,
-  CardText,
-  Row,
-  Col,
-} from "reactstrap";
-import classnames from "classnames";
 import CallApi from "../../../api/api";
+import { Tabs } from "../../Movies/Tabs/Tabs";
 
 export default class MoviePage extends Component {
   constructor() {
@@ -68,17 +55,7 @@ export default class MoviePage extends Component {
     // console.log(this.props);
     const {
       movie,
-      movie: {
-        backdrop_path,
-        poster_path,
-        title,
-        release_date,
-        runtime,
-        overview,
-        genres,
-        budget,
-        revenue,
-      },
+      movie: { backdrop_path, poster_path, title, vote_average, overview },
       favList,
       watchList,
     } = this.state;
@@ -88,21 +65,9 @@ export default class MoviePage extends Component {
     // console.log("movie", movie);
 
     const movieBackground = `https://image.tmdb.org/t/p/w500${backdrop_path}`;
-    let genresList = [];
-
-    try {
-      genresList = genres
-        .map((item) => {
-          return item.name;
-        })
-        .join(", ");
-      // console.log(genresList);
-    } catch (error) {
-      console.log("Error", `${error.name} ${error.message}`);
-    }
 
     return (
-      <div className="container pt-5">
+      <div className="container pt-5 pb-5">
         <div
           className="row movpage w-100 mh-100"
           style={{
@@ -121,17 +86,15 @@ export default class MoviePage extends Component {
               </div>
               <div className="col-8 text-light">
                 <p className="h4 text-center pt-3">{title}</p>
-                <p>Премьера: {release_date} </p>
-                <p>{genresList}</p>
-                <p>Продолжительность: {runtime} минут(ы) </p>
-                <div className="d-flex justify-content-between">
-                  <p>Кассовые сборы: ${revenue}</p>
-                  <p>Бюджет: ${budget}</p>
-                </div>
+                <p className="my-5">
+                  Рейтинг среди пользователей:{" "}
+                  <span className="h4">{vote_average}</span>
+                </p>
+
                 <div className="d-flex icons w-25 justify-content-between">
                   <div className="icons__item-bg">
                     <span
-                      className="material-icons md-36 yellow"
+                      className="material-icons movie-icon md-36 yellow"
                       title="В Избранное"
                       onClick={this.toggleFav}
                     >
@@ -140,7 +103,7 @@ export default class MoviePage extends Component {
                   </div>
                   <div className="icons__item-bg">
                     <span
-                      className="material-icons md-36"
+                      className="material-icons movie-icon md-36"
                       title="Смотреть позже"
                       onClick={this.toggleWatch}
                     >
@@ -157,17 +120,7 @@ export default class MoviePage extends Component {
           </div>
         </div>
         <div className="row">
-          <Nav tabs>
-            <NavItem>
-              <NavLink className="">Подробнее</NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink className="">Видео</NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink className="">Актеры</NavLink>
-            </NavItem>
-          </Nav>
+          <Tabs movie={movie} />
         </div>
       </div>
     );

@@ -35,12 +35,29 @@ input.invalid{
 
 .material-icons.yellow { color: yellow; }
 
+.icons:first-child{
+    margin-left: 20px;
+}
+
 .icons__item-bg{
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: #0d6efd;
-    width: 60px;
-    height: 60px;
+    min-width: 50px;
+    min-height: 50px;
     border-radius: 50%;
+}
+
+.movie-icon{
+    cursor: pointer;
+}
+
+/*===== TABS =====*/
+.nav-item{
+    padding: 15px;
+}
+
+.nav-link{
+    text-decoration: none;
 }
