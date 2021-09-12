@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 export class TabDetails extends Component {
   render() {
@@ -21,21 +22,21 @@ export class TabDetails extends Component {
     let countries = [];
 
     try {
-      genresList = genres.map((item, index) => {
+      genresList = genres.map((item) => {
         // return item.name;
         return (
           <li>
-            <span className="badge bg-primary px-2" key={index}>
+            <span className="badge bg-primary px-2" key={uuidv4()}>
               {item.name}
             </span>
           </li>
         );
       });
       // console.log(genresList);
-      countries = production_countries.map((item, index) => {
+      countries = production_countries.map((item) => {
         return (
           <li>
-            <span className="badge bg-primary px-2" key={index + 10}>
+            <span className="badge bg-primary px-2" key={uuidv4()}>
               {item.name}
             </span>
           </li>

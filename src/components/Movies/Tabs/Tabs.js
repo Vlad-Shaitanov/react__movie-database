@@ -3,7 +3,7 @@ import { Switch, NavLink, Route } from "react-router-dom";
 import { TabContent, Nav, NavItem } from "reactstrap";
 
 import { TabDetails } from "./TabDetail";
-import { TabVideo } from "./TabVideo";
+import { TabVideos } from "./TabVideos";
 import { TabCredits } from "./TabCredits";
 
 export class Tabs extends Component {
@@ -26,7 +26,7 @@ export class Tabs extends Component {
           </NavItem>
           <NavItem className="nav-item">
             <NavLink
-              to={`/movie/${movie.id}/video`}
+              to={`/movie/${movie.id}/videos`}
               activeStyle={{
                 backgroundColor: "#0D6EFD",
                 color: "#fff",
@@ -54,8 +54,8 @@ export class Tabs extends Component {
             <Route path={`/movie/${movie.id}/details`}>
               <TabDetails movie={movie} />
             </Route>
-            <Route path={`/movie/${movie.id}/video`}>
-              <TabVideo />
+            <Route path={`/movie/${movie.id}/videos`}>
+              <TabVideos id={movie.id} />
             </Route>
             <Route path={`/movie/${movie.id}/credits`}>
               <TabCredits />

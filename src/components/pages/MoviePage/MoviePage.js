@@ -13,6 +13,8 @@ export default class MoviePage extends Component {
     };
   }
 
+  // todo Сменить место хранения состояния
+
   updateMovie = (movie) => {
     this.setState({
       movie,
