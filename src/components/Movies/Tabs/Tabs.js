@@ -58,7 +58,7 @@ export class Tabs extends Component {
               <TabVideos id={movie.id} />
             </Route>
             <Route path={`/movie/${movie.id}/credits`}>
-              <TabCredits />
+              <TabCredits id={movie.id} />
             </Route>
           </Switch>
         </TabContent>
