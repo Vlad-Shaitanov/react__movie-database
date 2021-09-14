@@ -25,20 +25,16 @@ export class TabDetails extends Component {
       genresList = genres.map((item) => {
         // return item.name;
         return (
-          <li>
-            <span className="badge bg-primary px-2" key={uuidv4()}>
-              {item.name}
-            </span>
+          <li key={uuidv4()}>
+            <span className="badge bg-primary px-2">{item.name}</span>
           </li>
         );
       });
       // console.log(genresList);
       countries = production_countries.map((item) => {
         return (
-          <li>
-            <span className="badge bg-primary px-2" key={uuidv4()}>
-              {item.name}
-            </span>
+          <li key={uuidv4()}>
+            <span className="badge bg-primary px-2">{item.name}</span>
           </li>
         );
       });

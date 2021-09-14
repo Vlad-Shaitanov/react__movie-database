@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import CallApi from "../../../api/api";
+import { v4 as uuidv4 } from "uuid";
 
 export class TabVideos extends Component {
   constructor() {
@@ -41,7 +42,7 @@ export class TabVideos extends Component {
       trailers = results.map((item) => {
         const sourse = `http://www.youtube.com/embed/${item.key}?autoplay=0&origin=http://example.com`;
         return (
-          <div>
+          <div key={uuidv4()}>
             <div className="h4 text-center py-3">{item.name}</div>
             <div className="d-flex justify-content-center">
               <iframe
@@ -49,6 +50,7 @@ export class TabVideos extends Component {
                 type="text/html"
                 width="640"
                 height="360"
+                title="trailer"
                 src={sourse}
                 frameBorder="0"
               />
