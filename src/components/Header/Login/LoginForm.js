@@ -136,24 +136,19 @@ class LoginForm extends Component {
           request_token: result.request_token,
         },
       });
-      console.log(session_id);
+      console.log("session_id", session_id);
 
-      this.props.updateSessionId(session_id); //Записываем id сессии в состояние приложения(App)
-      // const account = await fetchApi(
-      //   `${API_URL}/account?api_key=${API_KEY_3}&session_id=${session_id}`
-      // );
-
-      const account = await CallApi.get("/account", {
+      const user = await CallApi.get("/account", {
         params: {
           session_id: session_id,
         },
       });
-      console.log("account", account);
+      console.log("account", user);
 
       this.setState({
         submitting: false,
       });
-      this.props.updateUser(account);
+      this.props.updateAuth(user, session_id); //Записываем user, id сессии в состояние приложения(App)
     } catch (error) {
       this.setState({
         submitting: false,
@@ -163,54 +158,6 @@ class LoginForm extends Component {
       });
       console.log("error", error);
     }
-
-    /*Цепочка запросов:
-  	1 - GET-запрос токена
-  	2 - POST-запрос, отправляем логин, пароль и токен из предыдущего запроса
-  	3- POST-запрос с токеном для получения id сессии
-  	*/
-    // fetchApi(`${API_URL}/authentication/token/new?api_key=${API_KEY_3}`)
-    //   .then((data) => {
-    //     console.log("request token", data);
-    //
-    //     return fetchApi(
-    //       `${API_URL}/authentication/token/validate_with_login?api_key=${API_KEY_3}`,
-    //       {
-    //         method: "POST",
-    //         mode: "cors",
-    //         headers: {
-    //           "Content-type": "application/json",
-    //         },
-    //         body: JSON.stringify({
-    //           username: "AtteroDominatus",
-    //           password: "Ta01Ka01Sa90Go",
-    //           request_token: data.request_token,
-    //         }),
-    //       }
-    //     );
-    //   })
-    //   .then((data) => {
-    //     console.log("Session with login", data);
-    //     return fetchApi(
-    //       `${API_URL}/authentication/session/new?api_key=${API_KEY_3}`,
-    //       {
-    //         method: "POST",
-    //         mode: "cors",
-    //         headers: {
-    //           "Content-type": "application/json",
-    //         },
-    //         body: JSON.stringify({
-    //           request_token: data.request_token,
-    //         }),
-    //       }
-    //     );
-    //   })
-    //   .then((data) => {
-    //     console.log("Session", data);
-    //   })
-    //   .catch((error) => {
-    //     console.log("error", error);
-    //   });
   };
 
   onLogin = (event) => {
