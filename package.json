@@ -20,6 +20,7 @@
     "react-scripts": "4.0.3",
     "reactstrap": "^8.9.0",
     "redux": "^4.1.1",
+    "redux-devtools-extension": "^2.13.9",
     "universal-cookie": "^4.0.4",
     "uuid": "^8.3.2",
     "web-vitals": "^1.1.2"

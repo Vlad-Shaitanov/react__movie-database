@@ -3,9 +3,12 @@ import { Header } from "./Header/Header";
 import CallApi from "../api/api";
 import MoviesPage from "./pages/MoviesPage/MoviesPage";
 import MoviePage from "./pages/MoviePage/MoviePage";
+import { FavoritePage } from "./pages/FavoritePage/FavoritePage";
+import { WatchLaterPage } from "./pages/WatchLaterPage/WatchLaterPage";
 import {
   actionCreatorUpdateAuth,
   actionCreatorLogOut,
+  actionCreatorUpdateFavoriteList,
 } from "../actions/actions";
 import { connect } from "react-redux";
 import { BrowserRouter, Route, Link } from "react-router-dom";
@@ -28,6 +31,17 @@ class App extends Component {
     this.props.store.dispatch(actionCreatorLogOut());
   };
 
+  getFavoriteList = ({ user, session_id }) => {
+    CallApi.get(`/account/${user.id}/favorite/movies`, {
+      params: {
+        session_id: session_id,
+      },
+    }).then((data) => {
+      // console.log("favorite Movies", data.results);
+      this.props.updateFavoriteList(data.results);
+    });
+  };
+
   componentDidMount() {
     const { session_id } = this.props;
 
@@ -39,7 +53,8 @@ class App extends Component {
           session_id: session_id,
         },
       }).then((user) => {
-        this.props.updateAuth(user, session_id);
+        this.props.updateAuth({ user, session_id });
+        this.getFavoriteList({ user, session_id });
       });
     }
   }
@@ -60,10 +75,20 @@ class App extends Component {
         >
           <div>
             <Header user={user} />
-            <Link to="/">All Movies</Link>
+            <div className="container mt-3 d-flex justify-content-between">
+              <Link to="/">Все фильмы</Link>
+              <Link to="/account/favorite">Избранное</Link>
+              <Link to="/account/watchlist">Смотреть позже</Link>
+            </div>
 
             <Route exact path="/" component={MoviesPage} />
+            {/*<Route path="/movie/:id">*/}
+            {/*/!*<MoviePage account={this.props.user} />*!/*/}
+            {/*<MoviePage />*/}
+            {/*</Route>*/}
             <Route path="/movie/:id" component={MoviePage} />
+            <Route path="/account/favorite" component={FavoritePage} />
+            <Route path="/account/watchlist" component={WatchLaterPage} />
           </div>
         </AppContext.Provider>
       </BrowserRouter>
@@ -76,16 +101,16 @@ class App extends Component {
 //Чтение состояния
 const mapStateToProps = (state) => {
   return {
-    user: state.user,
-    session_id: state.session_id,
-    isAuth: state.isAuth,
+    user: state.auth.user,
+    session_id: state.auth.session_id,
+    isAuth: state.auth.isAuth,
   };
 };
 
 //Передача события
 const mapDispatchToProps = (dispatch) => {
   return {
-    updateAuth: (user, session_id) =>
+    updateAuth: ({ user, session_id }) =>
       dispatch(
         actionCreatorUpdateAuth({
           user,
@@ -93,6 +118,8 @@ const mapDispatchToProps = (dispatch) => {
         })
       ),
     onLogOut: () => dispatch(actionCreatorLogOut()),
+    updateFavoriteList: (movies) =>
+      dispatch(actionCreatorUpdateFavoriteList(movies)),
   };
 };
 

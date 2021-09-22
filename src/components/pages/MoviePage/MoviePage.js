@@ -1,15 +1,21 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import CallApi from "../../../api/api";
 import { Tabs } from "../../Movies/Tabs/Tabs";
+import {
+  actionCreatorUpdateFavoriteList,
+  actionCreatorAddToFavoriteList,
+  actionCreatorRemoveFromFavoriteList,
+} from "../../../actions/actions";
 
-export default class MoviePage extends Component {
+class MoviePage extends Component {
   constructor() {
     super();
 
     this.state = {
       movie: {},
-      favList: false,
-      watchList: false,
+      favIcon: false,
+      watchIcon: false,
     };
   }
 
@@ -23,14 +29,77 @@ export default class MoviePage extends Component {
 
   toggleFav = () => {
     this.setState({
-      favList: !this.state.favList,
+      favIcon: !this.state.favIcon,
     });
   };
 
   toggleWatch = () => {
     this.setState({
-      watchList: !this.state.watchList,
+      watchIcon: !this.state.watchIcon,
     });
+  };
+
+  updateFavList = (movie) => {
+    let id = 0;
+    const indx = this.props.favoriteList.findIndex(
+      (item) => item.id === movie.id
+    );
+    console.log("index", indx);
+
+    //  indx >= 0
+    if (id === movie.id) {
+      this.toggleFav();
+      CallApi.delete(`/account/${this.props.account.id}/favorite`, {
+        params: {
+          session_id: this.props.session_id,
+          language: "ru-RU",
+        },
+        body: {
+          media_type: "movie",
+          media_id: movie.id,
+          favorite: false,
+        },
+      }).then(() => {
+        this.props.removeFromFavoriteList(movie);
+        id = 0;
+        console.log("id", id);
+      });
+    } else if (id === 0) {
+      this.toggleFav();
+      CallApi.post(`/account/${this.props.account.id}/favorite`, {
+        params: {
+          session_id: this.props.session_id,
+          language: "ru-RU",
+        },
+        body: {
+          media_type: "movie",
+          media_id: movie.id,
+          favorite: true,
+        },
+      }).then(() => {
+        this.props.addToFavoriteList(movie);
+        id = movie.id;
+        console.log("id", id);
+      });
+    }
+    this.toggleFav();
+
+    // CallApi.post(`/account/${this.props.account.id}/favorite`, {
+    //   params: {
+    //     session_id: this.props.session_id,
+    //   },
+    //   body: {
+    //     media_type: "movie",
+    //     media_id: movie.id,
+    //     favorite: true,
+    //   },
+    // }).then(() => {
+    //   this.props.updateFavoriteList(movie);
+    //   id = movie.id;
+    //   console.log("id", id);
+    // });
+
+    console.log("FavL", this.props.favoriteList);
   };
 
   componentDidMount() {
@@ -46,6 +115,10 @@ export default class MoviePage extends Component {
         );
 
         this.updateMovie(movie);
+        // this.updateFavList(movie);
+        // console.log("account", this.props.account);
+        // console.log("FavL", this.props.favoriteList);
+        // console.log("WatchL", this.props.watchList);
       } catch (error) {
         console.log("error", error);
       }
@@ -58,9 +131,11 @@ export default class MoviePage extends Component {
     const {
       movie,
       movie: { backdrop_path, poster_path, title, vote_average, overview },
-      favList,
-      watchList,
+      favIcon,
+      watchIcon,
     } = this.state;
+
+    // console.log("Movie props", this.props.account);
 
     //backdrop_path - задний фон фильма
     //poster_path - обложка
@@ -98,9 +173,10 @@ export default class MoviePage extends Component {
                     <span
                       className="material-icons movie-icon md-36 yellow"
                       title="В Избранное"
-                      onClick={this.toggleFav}
+                      // onClick={this.toggleFav}
+                      onClick={() => this.updateFavList(this.state.movie)}
                     >
-                      {favList ? "favorite" : "favorite_border"}
+                      {favIcon ? "favorite" : "favorite_border"}
                     </span>
                   </div>
                   <div className="icons__item-bg">
@@ -109,7 +185,7 @@ export default class MoviePage extends Component {
                       title="Смотреть позже"
                       onClick={this.toggleWatch}
                     >
-                      {watchList ? "bookmark" : "bookmark_border"}
+                      {watchIcon ? "bookmark" : "bookmark_border"}
                     </span>
                   </div>
                 </div>
@@ -128,3 +204,28 @@ export default class MoviePage extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    favoriteList: state.auth.favoriteList,
+    watchList: state.auth.watchList,
+    account: state.auth.user,
+    session_id: state.auth.session_id,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    // updateFavoriteList: (movie) => {
+    //   dispatch(actionCreatorUpdateFavoriteList(movie));
+    // },
+    addToFavoriteList: (movie) => {
+      dispatch(actionCreatorAddToFavoriteList(movie));
+    },
+    removeFromFavoriteList: (movie) => {
+      dispatch(actionCreatorRemoveFromFavoriteList(movie));
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(MoviePage);
