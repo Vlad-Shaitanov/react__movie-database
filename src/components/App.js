@@ -9,6 +9,7 @@ import {
   actionCreatorUpdateAuth,
   actionCreatorLogOut,
   actionCreatorUpdateFavoriteList,
+  actionCreatorUpdateWatchList,
 } from "../actions/actions";
 import { connect } from "react-redux";
 import { BrowserRouter, Route, Link } from "react-router-dom";
@@ -31,14 +32,29 @@ class App extends Component {
     this.props.store.dispatch(actionCreatorLogOut());
   };
 
+  //Получение списка избранных фильмов
   getFavoriteList = ({ user, session_id }) => {
     CallApi.get(`/account/${user.id}/favorite/movies`, {
       params: {
         session_id: session_id,
+        language: "ru-RU",
       },
     }).then((data) => {
       // console.log("favorite Movies", data.results);
       this.props.updateFavoriteList(data.results);
+    });
+  };
+
+  //Получение списка фильмов для отложенного просмотра
+  getWatchList = ({ user, session_id }) => {
+    CallApi.get(`/account/${user.id}/watchlist/movies`, {
+      params: {
+        session_id: session_id,
+        language: "ru-RU",
+      },
+    }).then((data) => {
+      // console.log("Watch Movies", data.results);
+      this.props.updateWatchList(data.results);
     });
   };
 
@@ -53,8 +69,9 @@ class App extends Component {
           session_id: session_id,
         },
       }).then((user) => {
-        this.props.updateAuth({ user, session_id });
+        this.props.updateAuth(user, session_id);
         this.getFavoriteList({ user, session_id });
+        this.getWatchList({ user, session_id });
       });
     }
   }
@@ -82,10 +99,6 @@ class App extends Component {
             </div>
 
             <Route exact path="/" component={MoviesPage} />
-            {/*<Route path="/movie/:id">*/}
-            {/*/!*<MoviePage account={this.props.user} />*!/*/}
-            {/*<MoviePage />*/}
-            {/*</Route>*/}
             <Route path="/movie/:id" component={MoviePage} />
             <Route path="/account/favorite" component={FavoritePage} />
             <Route path="/account/watchlist" component={WatchLaterPage} />
@@ -110,7 +123,7 @@ const mapStateToProps = (state) => {
 //Передача события
 const mapDispatchToProps = (dispatch) => {
   return {
-    updateAuth: ({ user, session_id }) =>
+    updateAuth: (user, session_id) =>
       dispatch(
         actionCreatorUpdateAuth({
           user,
@@ -120,6 +133,7 @@ const mapDispatchToProps = (dispatch) => {
     onLogOut: () => dispatch(actionCreatorLogOut()),
     updateFavoriteList: (movies) =>
       dispatch(actionCreatorUpdateFavoriteList(movies)),
+    updateWatchList: (movies) => dispatch(actionCreatorUpdateWatchList(movies)),
   };
 };
 

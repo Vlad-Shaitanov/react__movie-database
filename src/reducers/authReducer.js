@@ -38,12 +38,20 @@ export const authReducer = (state = initialState, action) => {
       };
 
     //Обновление Избранного
-    // case "UPDATE_FAVORITE_LIST":
-    //   return {
-    //     ...state,
-    //     favoriteList: action.payload,
-    //   };
+    case "UPDATE_FAVORITE_LIST":
+      return {
+        ...state,
+        favoriteList: action.payload,
+      };
 
+    //Обновление списка фильмов, ожидающих просмотра
+    case "UPDATE_WATCH_LIST":
+      return {
+        ...state,
+        watchList: action.payload,
+      };
+
+    //Добавление фильма в Избранное
     case "ADD_TO_FAVORITE_LIST":
       const newItem = action.payload;
       return {
@@ -51,6 +59,7 @@ export const authReducer = (state = initialState, action) => {
         favoriteList: [...state.favoriteList.slice(), newItem],
       };
 
+    //Удаление фильма из избранного
     case "REMOVE_FROM_FAVORITE_LIST":
       const id = action.payload.id;
       const itemInState = state.favoriteList.findIndex(
@@ -69,12 +78,30 @@ export const authReducer = (state = initialState, action) => {
         };
       }
 
-    //Обновление списка фильмов, ожидающих просмотра
-    case "UPDATE_WATCH_LIST":
+    //Добавление фильма в Вишлист
+    case "ADD_TO_WATCH_LIST":
+      const newItemWL = action.payload;
       return {
         ...state,
-        watchList: action.payload,
+        watchList: [...state.watchList.slice(), newItemWL],
       };
+
+    //Удаление фильма из Вишлиста
+    case "REMOVE_FROM_WATCH_LIST":
+      const idWL = action.payload.id;
+      const itemInWL = state.watchList.findIndex((item) => item.id === idWL);
+
+      if (state.watchList.length < 1) {
+        return state;
+      } else {
+        return {
+          ...state,
+          watchList: [
+            ...state.watchList.slice(0, itemInWL),
+            ...state.watchList.slice(itemInWL + 1),
+          ],
+        };
+      }
 
     default:
       return state;

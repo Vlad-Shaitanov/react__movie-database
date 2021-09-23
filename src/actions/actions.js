@@ -38,3 +38,17 @@ export const actionCreatorUpdateWatchList = (payload) => {
     payload,
   };
 };
+
+export const actionCreatorAddToWatchList = (payload) => {
+  return {
+    type: "ADD_TO_WATCH_LIST",
+    payload,
+  };
+};
+
+export const actionCreatorRemoveFromWatchList = (payload) => {
+  return {
+    type: "REMOVE_FROM_WATCH_LIST",
+    payload,
+  };
+};
